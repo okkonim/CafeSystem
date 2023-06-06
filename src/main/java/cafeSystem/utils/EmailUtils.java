@@ -18,7 +18,7 @@ public class EmailUtils {
     private final JavaMailSender emailSender;
     public void sendSimpleMessage(String to, String subject, String text, List<String> list){
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("Okko1707@gmail.com");
+        message.setFrom("cafead12412@gmail.com");
         message.setTo(to);
         message.setSubject(subject);
         message.setText(text);
@@ -35,7 +35,7 @@ public class EmailUtils {
     public void forgotMail(String to, String subject, String password) throws MessagingException {
         MimeMessage message = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
-        helper.setFrom("Okko1707@gmail.com");
+        helper.setFrom("cafead12412@gmail.com");
         helper.setTo(to);
         helper.setSubject(subject);
         String htmlMessage = "<p><b>Your login details for Cafe Management System" +
