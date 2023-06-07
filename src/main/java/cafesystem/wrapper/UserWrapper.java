@@ -1,4 +1,4 @@
-package cafesystem.wrapper;
+package cafeSystem.wrapper;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

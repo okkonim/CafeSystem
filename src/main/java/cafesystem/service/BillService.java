@@ -1,6 +1,6 @@
-package cafesystem.service;
+package cafeSystem.service;
 
-import cafesystem.pojo.Bill;
+import cafeSystem.pojo.Bill;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;

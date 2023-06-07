@@ -1,10 +1,10 @@
-package cafesystem.restImpl;
+package cafeSystem.restImpl;
 
-import cafesystem.constents.CafeConstants;
-import cafesystem.service.CategoryService;
-import cafesystem.pojo.Category;
-import cafesystem.rest.CategoryRest;
-import cafesystem.utils.CafeUtils;
+import cafeSystem.constents.CafeConstants;
+import cafeSystem.service.CategoryService;
+import cafeSystem.pojo.Category;
+import cafeSystem.rest.CategoryRest;
+import cafeSystem.utils.CafeUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

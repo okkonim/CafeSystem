@@ -1,4 +1,4 @@
-package cafesystem.pojo;
+package cafeSystem.pojo;
 
 import lombok.Data;
 import org.hibernate.annotations.DynamicInsert;

@@ -1,7 +1,7 @@
-package cafesystem.dao;
+package cafeSystem.dao;
 
-import cafesystem.pojo.User;
-import cafesystem.wrapper.UserWrapper;
+import cafeSystem.pojo.User;
+import cafeSystem.wrapper.UserWrapper;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.repository.query.Param;

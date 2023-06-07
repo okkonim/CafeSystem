@@ -1,7 +1,7 @@
-package cafesystem.restImpl;
+package cafeSystem.restImpl;
 
-import cafesystem.service.DashboardService;
-import cafesystem.rest.DashboardRest;
+import cafeSystem.service.DashboardService;
+import cafeSystem.rest.DashboardRest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

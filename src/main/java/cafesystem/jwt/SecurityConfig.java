@@ -1,4 +1,4 @@
-package cafesystem.jwt;
+package cafeSystem.jwt;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

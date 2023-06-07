@@ -1,9 +1,9 @@
-package cafesystem.serviceImpl;
+package cafeSystem.serviceImpl;
 
-import cafesystem.dao.BillDao;
-import cafesystem.dao.CategoryDao;
-import cafesystem.dao.ProductDao;
-import cafesystem.service.DashboardService;
+import cafeSystem.dao.BillDao;
+import cafeSystem.dao.CategoryDao;
+import cafeSystem.dao.ProductDao;
+import cafeSystem.service.DashboardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

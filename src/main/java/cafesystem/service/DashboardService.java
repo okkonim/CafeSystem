@@ -1,4 +1,4 @@
-package cafesystem.service;
+package cafeSystem.service;
 
 import org.springframework.http.ResponseEntity;
 

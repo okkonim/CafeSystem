@@ -1,6 +1,6 @@
-package cafesystem.rest;
+package cafeSystem.rest;
 
-import cafesystem.wrapper.UserWrapper;
+import cafeSystem.wrapper.UserWrapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

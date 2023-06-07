@@ -1,6 +1,6 @@
-package cafesystem.dao;
+package cafeSystem.dao;
 
-import cafesystem.pojo.Bill;
+import cafeSystem.pojo.Bill;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 

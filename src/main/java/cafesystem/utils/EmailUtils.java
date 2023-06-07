@@ -1,4 +1,4 @@
-package cafesystem.utils;
+package cafeSystem.utils;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;

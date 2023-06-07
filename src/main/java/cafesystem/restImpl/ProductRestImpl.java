@@ -1,10 +1,10 @@
-package cafesystem.restImpl;
+package cafeSystem.restImpl;
 
-import cafesystem.constents.CafeConstants;
-import cafesystem.rest.ProductRest;
-import cafesystem.service.ProductService;
-import cafesystem.utils.CafeUtils;
-import cafesystem.wrapper.ProductWrapper;
+import cafeSystem.constents.CafeConstants;
+import cafeSystem.rest.ProductRest;
+import cafeSystem.service.ProductService;
+import cafeSystem.utils.CafeUtils;
+import cafeSystem.wrapper.ProductWrapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
