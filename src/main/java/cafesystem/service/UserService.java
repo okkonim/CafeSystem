@@ -1,6 +1,6 @@
-package cafeSystem.service;
+package cafesystem.service;
 
-import cafeSystem.wrapper.UserWrapper;
+import cafesystem.wrapper.UserWrapper;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;

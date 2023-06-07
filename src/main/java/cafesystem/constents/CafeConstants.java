@@ -1,4 +1,4 @@
-package cafeSystem.constents;
+package cafesystem.constents;
 public class CafeConstants {
     private CafeConstants() {
         throw new IllegalStateException("Utility class");

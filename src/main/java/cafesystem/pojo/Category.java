@@ -1,4 +1,4 @@
-package cafeSystem.pojo;
+package cafesystem.pojo;
 
 import javax.persistence.*;
 

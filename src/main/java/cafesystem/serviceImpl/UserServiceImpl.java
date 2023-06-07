@@ -1,16 +1,16 @@
-package cafeSystem.serviceImpl;
+package cafesystem.serviceImpl;
 
-import cafeSystem.constents.CafeConstants;
+import cafesystem.constents.CafeConstants;
 import com.google.common.base.Strings;
-import cafeSystem.dao.UserDao;
-import cafeSystem.jwt.CustomerUsersDetailsService;
-import cafeSystem.jwt.JwtFilter;
-import cafeSystem.jwt.JwtUtil;
-import cafeSystem.pojo.User;
-import cafeSystem.service.UserService;
-import cafeSystem.utils.CafeUtils;
-import cafeSystem.utils.EmailUtils;
-import cafeSystem.wrapper.UserWrapper;
+import cafesystem.dao.UserDao;
+import cafesystem.jwt.CustomerUsersDetailsService;
+import cafesystem.jwt.JwtFilter;
+import cafesystem.jwt.JwtUtil;
+import cafesystem.pojo.User;
+import cafesystem.service.UserService;
+import cafesystem.utils.CafeUtils;
+import cafesystem.utils.EmailUtils;
+import cafesystem.wrapper.UserWrapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

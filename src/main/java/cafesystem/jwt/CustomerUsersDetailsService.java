@@ -1,6 +1,6 @@
-package cafeSystem.jwt;
-import cafeSystem.dao.UserDao;
-import cafeSystem.pojo.User;
+package cafesystem.jwt;
+import cafesystem.dao.UserDao;
+import cafesystem.pojo.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;

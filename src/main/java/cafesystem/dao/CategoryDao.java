@@ -1,6 +1,6 @@
-package cafeSystem.dao;
+package cafesystem.dao;
 
-import cafeSystem.pojo.Category;
+import cafesystem.pojo.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
