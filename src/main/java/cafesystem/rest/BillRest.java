@@ -1,6 +1,6 @@
-package cafeSystem.rest;
+package cafesystem.rest;
 
-import cafeSystem.pojo.Bill;
+import cafesystem.pojo.Bill;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

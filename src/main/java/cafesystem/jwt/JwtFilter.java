@@ -1,4 +1,4 @@
-package cafeSystem.jwt;
+package cafesystem.jwt;
 
 import io.jsonwebtoken.Claims;
 import javax.servlet.Filter;

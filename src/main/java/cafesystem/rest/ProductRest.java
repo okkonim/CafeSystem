@@ -1,6 +1,6 @@
-package cafeSystem.rest;
+package cafesystem.rest;
 
-import cafeSystem.wrapper.ProductWrapper;
+import cafesystem.wrapper.ProductWrapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

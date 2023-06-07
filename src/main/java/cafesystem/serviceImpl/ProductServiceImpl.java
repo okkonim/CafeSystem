@@ -1,13 +1,13 @@
-package cafeSystem.serviceImpl;
+package cafesystem.serviceImpl;
 
-import cafeSystem.constents.CafeConstants;
-import cafeSystem.dao.ProductDao;
-import cafeSystem.service.ProductService;
-import cafeSystem.jwt.JwtFilter;
-import cafeSystem.pojo.Category;
-import cafeSystem.pojo.Product;
-import cafeSystem.utils.CafeUtils;
-import cafeSystem.wrapper.ProductWrapper;
+import cafesystem.constents.CafeConstants;
+import cafesystem.dao.ProductDao;
+import cafesystem.service.ProductService;
+import cafesystem.jwt.JwtFilter;
+import cafesystem.pojo.Category;
+import cafesystem.pojo.Product;
+import cafesystem.utils.CafeUtils;
+import cafesystem.wrapper.ProductWrapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
