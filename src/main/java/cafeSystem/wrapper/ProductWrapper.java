@@ -12,7 +12,7 @@ public class ProductWrapper {
     private String description;
     private String name;
     private Integer price;
-    private String status;
+    private String status="present";
     private Integer categoryId;
     private String categoryName;
     private String image;

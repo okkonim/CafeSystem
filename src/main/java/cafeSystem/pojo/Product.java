@@ -8,7 +8,7 @@ import java.io.Serializable;
 @NamedQuery(name = "Product.getAllProducts", query = "select new cafeSystem.wrapper.ProductWrapper(p.id, p.name, p.description, p.price, p.status, p.category.id, p.category.name, p.image) from Product p")
 @NamedQuery(name= "Product.updateImage", query = "update Product p set p.image=:image where p.id=:id")
 @NamedQuery(name = "Product.updateProductStatus", query = "update Product p set p.status=:status where p.id=:id")
-@NamedQuery(name = "Product.getProductByCategory", query = "select new cafeSystem.wrapper.ProductWrapper(p.id, p.name) from Product p where p.category.id=:id and p.status='true'")
+@NamedQuery(name = "Product.getProductByCategory", query = "select new cafeSystem.wrapper.ProductWrapper(p.id, p.name) from Product p where p.category.id=:id and p.status='present'")
 @NamedQuery(name = "Product.getProductById", query = "select new cafeSystem.wrapper.ProductWrapper(p.id, p.name, p.description, p.price, p.image) from Product p where p.id=:id")
 
 @Data
@@ -29,5 +29,5 @@ public class Product implements Serializable {
     private Integer price;
     private String image;
 
-    private String status= "present";
+    private String status;
 }
