@@ -42,8 +42,8 @@ public class BillServiceImpl implements BillService {
                     this.insertBill(requestMap);
                 }
 
-                String data = "Имя: " + requestMap.get("name") + "\nКонтактный телефон: " + requestMap.get("contactNumber") +
-                        "\nEmail: " + requestMap.get("email") + "\nМетод оплаты: " + requestMap.get("paymentMethod");
+                String data = "Name: " + requestMap.get("name") + "\nContact Number: " + requestMap.get("contactNumber") +
+                        "\nEmail: " + requestMap.get("email") + "\nPayment Method: " + requestMap.get("paymentMethod");
 
                 Document document = new Document();
                 PdfWriter.getInstance(document, new FileOutputStream(CafeConstants.STORE_LOCATION+"/"+fileName+".pdf"));
@@ -51,7 +51,7 @@ public class BillServiceImpl implements BillService {
 
                 this.setRectangleInPdf(document);
 
-                Paragraph chunk = new Paragraph("Система управления кафе", this.getFont("Header"));
+                Paragraph chunk = new Paragraph("Cafe Management System", this.getFont("Header"));
                 chunk.setAlignment(Element.ALIGN_CENTER);
                 document.add(chunk);
 
@@ -68,7 +68,7 @@ public class BillServiceImpl implements BillService {
                 }
                 document.add(table);
 
-                Paragraph footer = new Paragraph("Итог: " + requestMap.get("totalAmount") + "\n" + "Спасибо за покупку! Приходите снова.",this.getFont("Data"));
+                Paragraph footer = new Paragraph("Total: " + requestMap.get("totalAmount") + "\n" + "Thank you for visiting.",this.getFont("Data"));
                 document.add(footer);
                 document.close();
                 return new ResponseEntity<>("{\"uuid\":\""+fileName+"\"}", HttpStatus.OK);
