@@ -178,6 +178,8 @@ public class UserServiceImpl implements UserService {
                 userWrapper.setId(currentUser.getId());
                 userWrapper.setName(currentUser.getName());
                 userWrapper.setContactNumber(currentUser.getContactNumber());
+                userWrapper.setStatus(currentUser.getStatus());
+                userWrapper.setEmail(currentUser.getEmail());
                 return userWrapper;
             }
         } catch (Exception exception) {
