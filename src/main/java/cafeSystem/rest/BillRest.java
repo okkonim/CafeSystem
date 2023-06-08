@@ -9,7 +9,7 @@ import java.util.Map;
 
 @RequestMapping("/bill")
 public interface BillRest {
-    @PostMapping("/create")
+    @PostMapping("/generateReport")
     public ResponseEntity<String> generateReport(@RequestBody Map<String, Object> requestMap);
     @GetMapping
     public ResponseEntity<List<Bill>> getBills();

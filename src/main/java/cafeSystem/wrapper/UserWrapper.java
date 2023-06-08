@@ -14,5 +14,4 @@ public class UserWrapper {
     private String contactNumber;
     private String status;
     private String role;
-
 }
