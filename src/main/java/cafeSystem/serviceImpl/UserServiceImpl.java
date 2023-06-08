@@ -180,6 +180,7 @@ public class UserServiceImpl implements UserService {
                 userWrapper.setContactNumber(currentUser.getContactNumber());
                 userWrapper.setStatus(currentUser.getStatus());
                 userWrapper.setEmail(currentUser.getEmail());
+                userWrapper.setRole(currentUser.getRole());
                 return userWrapper;
             }
         } catch (Exception exception) {

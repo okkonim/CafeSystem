@@ -13,4 +13,8 @@ public class UserWrapper {
     private String email;
     private String contactNumber;
     private String status;
+
+    public void setRole(String role) {
+        this.setRole(role);
+    }
 }
