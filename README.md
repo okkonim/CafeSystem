@@ -52,7 +52,7 @@ Launch the application using Maven:
 
 After starting the application, you can send requests to the API to verify its functionality.
 
-##API Endpoints
+##API Endpoints##
 **Categories**
  - GET /api/categories - Retrieve all categories
  - POST /api/categories - Add a new category
