@@ -53,17 +53,20 @@ Launch the application using Maven:
 After starting the application, you can send requests to the API to verify its functionality.
 
 ## API Endpoints
+
 **Categories**
  - GET /api/categories - Retrieve all categories
  - POST /api/categories - Add a new category
  - PUT /api/categories/{id} - Update category information
  - DELETE /api/categories/{id} - Delete a category
+   
 **Products**
  - GET /api/products - Retrieve all products
  - POST /api/products - Add a new product
  - PUT /api/products/{id} - Update product information
  - DELETE /api/products/{id} - Delete a product
  - GET /api/products/{id} - Retrieve product information by ID
+   
 **Users**
  - POST /api/users/signup - Register a new user
  - POST /api/users/login - User login
@@ -72,6 +75,7 @@ After starting the application, you can send requests to the API to verify its f
  - PUT /api/users/{id}/status - Update user status
  - POST /api/users/change-password - Change user password
 - POST /api/users/forgot-password - Reset user password
+  
 **Orders**
  - POST /api/orders - Create a new order
  - GET /api/orders - Retrieve all orders
