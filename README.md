@@ -1,6 +1,7 @@
 # Cafe Management System
 
-![Cafe Management System](cafe-system.png)
+![Cafe Management System](![image](https://github.com/okkonim/CafeSystem/assets/113597041/446d905a-7582-47ff-adf4-1de17f88ca5b)
+)
 
 ## Overview
 
