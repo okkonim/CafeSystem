@@ -31,7 +31,6 @@ The **Cafe Management System** project is developed to automate cafe management 
    git clone https://github.com/your/repository.git
    cd cafe-management-system
    
-Install dependencies
 
 2. **Use Maven to install dependencies:**
 
@@ -42,6 +41,7 @@ Install dependencies
 
  - Create a MySQL database named cafe_db.
  - Configure database settings in the application.properties file.
+   
 4. **Run the application**
 
 Launch the application using Maven:
@@ -51,6 +51,10 @@ Launch the application using Maven:
 5. **Verify functionality**
 
 After starting the application, you can send requests to the API to verify its functionality.
+
+6. **Frontend Repository**
+
+The frontend for this system is located in another repository: Cafe Management Frontend - https://github.com/okkonim/CafeSystem-Frontend.
 
 ## API Endpoints
 
