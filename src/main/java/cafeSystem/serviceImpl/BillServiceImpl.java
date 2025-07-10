@@ -5,12 +5,13 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import cafeSystem.constents.CafeConstants;
+import cafeSystem.utils.CafeUtils;
 import cafeSystem.dao.BillDao;
 import cafeSystem.jwt.JwtFilter;
 import cafeSystem.pojo.Bill;
 import cafeSystem.service.BillService;
-import cafeSystem.utils.CafeUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.pdfbox.io.IOUtils;
 import org.json.JSONArray;
 import org.springframework.http.HttpStatus;
@@ -24,11 +25,16 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+@Slf4j
 @Service
-@RequiredArgsConstructor
 public class BillServiceImpl implements BillService {
     private final BillDao billDao;
     private final JwtFilter jwtFilter;
+
+    public BillServiceImpl(BillDao billDao, JwtFilter jwtFilter) {
+        this.billDao = billDao;
+        this.jwtFilter = jwtFilter;
+    }
     @Override
     public ResponseEntity<String> generateReport(Map<String, Object> requestMap) {
         try {
@@ -36,12 +42,16 @@ public class BillServiceImpl implements BillService {
             if(this.validateRequestMap(requestMap)){
                 if(requestMap.containsKey("isGenerate") && !(Boolean)requestMap.get("isGenerate")){
                     fileName = (String) requestMap.get("uuid");
+                    if (fileName == null || fileName.isEmpty()) {
+                        fileName = cafeSystem.utils.CafeUtils.getUUID();
+                        requestMap.put("uuid", fileName);
+                        this.insertBill(requestMap);
+                    }
                 } else {
-                    fileName = CafeUtils.getUUID();
+                    fileName = cafeSystem.utils.CafeUtils.getUUID();
                     requestMap.put("uuid", fileName);
                     this.insertBill(requestMap);
                 }
-
                 String data = "Name: " + requestMap.get("name") + "\nContact Number: " + requestMap.get("contactNumber") +
                         "\nEmail: " + requestMap.get("email") + "\nPayment Method: " + requestMap.get("paymentMethod");
 
@@ -72,13 +82,13 @@ public class BillServiceImpl implements BillService {
                 document.add(footer);
                 document.close();
                 return new ResponseEntity<>("{\"uuid\":\""+fileName+"\"}", HttpStatus.OK);
-
-
-            } else return CafeUtils.getResponseEntity("Required data not found", HttpStatus.BAD_REQUEST);
+            } else {
+                return CafeUtils.getResponseEntity("Required data not found", HttpStatus.BAD_REQUEST);
+            }
         } catch (Exception exception){
-            exception.printStackTrace();
+            log.error("Error in generateReport", exception);
+            return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
@@ -91,7 +101,7 @@ public class BillServiceImpl implements BillService {
                 bills = billDao.getBillByUsername(jwtFilter.getCurrentUser());
             }
         } catch (Exception exception){
-            exception.printStackTrace();
+            log.error("Error in getBills", exception);
         }
         return new ResponseEntity<>(bills, HttpStatus.NOT_FOUND);
     }
@@ -114,7 +124,7 @@ public class BillServiceImpl implements BillService {
                 return new ResponseEntity<>(bytes, HttpStatus.OK);
             }
         } catch (Exception exception){
-            exception.printStackTrace();
+            log.error("Error in getPdf", exception);
         }
         return null;
     }
@@ -128,7 +138,7 @@ public class BillServiceImpl implements BillService {
                 return CafeUtils.getResponseEntity("Bill "+billOptional.get().getUuid() + " was deleted successfully", HttpStatus.OK);
             } else return CafeUtils.getResponseEntity("Bill with id " + id + " does not exists", HttpStatus.NOT_FOUND);
         } catch (Exception exception){
-            exception.printStackTrace();
+            log.error("Error in deleteBill", exception);
         }
         return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -201,7 +211,7 @@ public class BillServiceImpl implements BillService {
             bill.setCreatedBy(jwtFilter.getCurrentUser());
             billDao.save(bill);
         } catch (Exception exception){
-            exception.printStackTrace();
+            log.error("Error in insertBill", exception);
         }
     }
 

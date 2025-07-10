@@ -12,6 +12,8 @@ import java.io.Serializable;
 @NamedQuery(name = "User.getAllAdmin", query = "select u.email from User u where u.role='admin'")
 @NamedQuery(name = "User.updateStatus", query = "update User u set u.status=:status where u.id=:id")
 
+// В JPA NamedQuery нельзя использовать Java-константы, поэтому строки остаются, но добавить комментарий:
+// TODO: Дублируется с CafeConstants. Если менять значения, не забыть обновить и здесь.
 @Data
 @Entity
 @DynamicInsert

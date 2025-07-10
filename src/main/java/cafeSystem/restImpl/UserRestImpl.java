@@ -6,10 +6,11 @@ import cafeSystem.jwt.JwtUtil;
 import cafeSystem.pojo.User;
 import cafeSystem.rest.UserRest;
 import cafeSystem.service.UserService;
-import cafeSystem.utils.CafeUtils;
 import cafeSystem.wrapper.UserWrapper;
+import cafeSystem.wrapper.UserDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,19 +20,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 public class UserRestImpl implements UserRest {
     private final UserService userService;
 
     @Override
-    public ResponseEntity<String> signUp(Map<String, String> requestMap) {
+    public ResponseEntity<String> signUp(UserDTO userDTO) {
         try{
+            Map<String, String> requestMap = new HashMap<>();
+            requestMap.put("name", userDTO.getName());
+            requestMap.put("contactNumber", userDTO.getContactNumber());
+            requestMap.put("email", userDTO.getEmail());
+            requestMap.put("password", userDTO.getPassword());
             return userService.signup(requestMap);
         } catch (Exception exception){
-            exception.printStackTrace();
+            log.error("Error in signUp", exception);
         }
-        return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(("{\"message\":\"" + CafeConstants.SOMETHING_WENT_WRONG + "\"}"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
@@ -39,9 +46,9 @@ public class UserRestImpl implements UserRest {
         try{
             return userService.login(requestMap);
         } catch (Exception exception){
-            exception.printStackTrace();
+            log.error("Error in login", exception);
         }
-        return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(("{\"message\":\"" + CafeConstants.SOMETHING_WENT_WRONG + "\"}"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
@@ -49,7 +56,7 @@ public class UserRestImpl implements UserRest {
         try {
             return userService.getAllUsers();
         } catch (Exception exception){
-            exception.printStackTrace();
+            log.error("Error in getAllUsers", exception);
         }
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -61,7 +68,7 @@ public class UserRestImpl implements UserRest {
         } catch (Exception exception){
             exception.printStackTrace();
         }
-        return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(("{\"message\":\"" + CafeConstants.SOMETHING_WENT_WRONG + "\"}"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
@@ -71,7 +78,7 @@ public class UserRestImpl implements UserRest {
         } catch (Exception exception){
             exception.printStackTrace();
         }
-        return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(("{\"message\":\"" + CafeConstants.SOMETHING_WENT_WRONG + "\"}"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
@@ -81,7 +88,7 @@ public class UserRestImpl implements UserRest {
         } catch (Exception exception){
             exception.printStackTrace();
         }
-        return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(("{\"message\":\"" + CafeConstants.SOMETHING_WENT_WRONG + "\"}"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
@@ -91,7 +98,7 @@ public class UserRestImpl implements UserRest {
         } catch (Exception exception){
             exception.printStackTrace();
         }
-        return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(("{\"message\":\"" + CafeConstants.SOMETHING_WENT_WRONG + "\"}"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
     @Override
     public ResponseEntity<UserWrapper> getCurrent() {
@@ -103,7 +110,7 @@ public class UserRestImpl implements UserRest {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
         } catch (Exception exception) {
-            exception.printStackTrace();
+            log.error("Error in getCurrent", exception);
         }
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }

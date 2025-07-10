@@ -6,11 +6,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import cafeSystem.wrapper.ProductDTO;
+import javax.validation.Valid;
 
 @RequestMapping("/product")
 public interface ProductRest {
     @PostMapping("/add")
-    public ResponseEntity<String> addProduct(@RequestBody Map<String, String> requestMap);
+    public ResponseEntity<String> addProduct(@Valid @RequestBody ProductDTO productDTO);
     @GetMapping("/get")
     public ResponseEntity<List<ProductWrapper>> getAllProducts();
     @PostMapping("/update")

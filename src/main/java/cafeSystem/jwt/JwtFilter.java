@@ -1,5 +1,6 @@
 package cafeSystem.jwt;
 
+import cafeSystem.constents.CafeConstants;
 import io.jsonwebtoken.Claims;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -48,10 +49,10 @@ public class JwtFilter extends OncePerRequestFilter implements Filter {
         }
     }
     public boolean isAdmin(){
-        return "admin".equalsIgnoreCase((String) claims.get("role"));
+        return CafeConstants.ROLE_ADMIN.equalsIgnoreCase((String) claims.get(CafeConstants.FIELD_ROLE));
     }
     public boolean isUser(){
-        return "user".equalsIgnoreCase((String) claims.get("role"));
+        return CafeConstants.ROLE_USER.equalsIgnoreCase((String) claims.get(CafeConstants.FIELD_ROLE));
     }
     public String getCurrentUser(){
         return username;

@@ -8,6 +8,7 @@ import cafeSystem.pojo.Category;
 import cafeSystem.service.CategoryService;
 import cafeSystem.utils.CafeUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryDao categoryDao;
     private final JwtFilter jwtFilter;
@@ -34,7 +36,7 @@ public class CategoryServiceImpl implements CategoryService {
                 return CafeUtils.getResponseEntity(CafeConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
             }
         } catch (Exception exception){
-            exception.printStackTrace();
+            log.error("Error in addCategory", exception);
         }
         return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -42,11 +44,11 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public ResponseEntity<List<Category>> getCategories(String filterValue) {
         try {
-            if(!Strings.isNullOrEmpty(filterValue) && filterValue.equalsIgnoreCase("true"))
+            if(!Strings.isNullOrEmpty(filterValue) && filterValue.equalsIgnoreCase(CafeConstants.STATUS_TRUE))
                 return new ResponseEntity<>(categoryDao.getAllCategory(), HttpStatus.OK);
             return new ResponseEntity<>(categoryDao.findAll(), HttpStatus.OK);
         } catch (Exception exception){
-            exception.printStackTrace();
+            log.error("Error in getCategories", exception);
         }
         return new ResponseEntity<List<Category>>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -68,7 +70,7 @@ public class CategoryServiceImpl implements CategoryService {
             }
             return CafeUtils.getResponseEntity(CafeConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
         } catch (Exception exception){
-            exception.printStackTrace();
+            log.error("Error in updateCategory", exception);
         }
         return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }

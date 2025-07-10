@@ -4,8 +4,8 @@ import cafeSystem.constents.CafeConstants;
 import cafeSystem.service.CategoryService;
 import cafeSystem.pojo.Category;
 import cafeSystem.rest.CategoryRest;
-import cafeSystem.utils.CafeUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class CategoryRestImpl implements CategoryRest {
@@ -23,9 +24,9 @@ public class CategoryRestImpl implements CategoryRest {
         try {
             return categoryService.addCategory(requestMap);
         } catch (Exception exception){
-            exception.printStackTrace();
+            log.error("Error in addCategory", exception);
+            return new ResponseEntity<>(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
@@ -33,7 +34,7 @@ public class CategoryRestImpl implements CategoryRest {
         try {
             return categoryService.getCategories(filterValue);
         } catch (Exception exception){
-            exception.printStackTrace();
+            log.error("Error in getCategories", exception);
         }
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -43,8 +44,8 @@ public class CategoryRestImpl implements CategoryRest {
         try {
             return categoryService.updateCategory(requestMap);
         } catch (Exception exception){
-            exception.printStackTrace();
+            log.error("Error in updateCategory", exception);
         }
-        return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(("{\"message\":\"" + CafeConstants.SOMETHING_WENT_WRONG + "\"}"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

@@ -5,6 +5,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.*;
 import java.util.function.Function;
@@ -12,7 +13,8 @@ import java.util.function.Function;
 @Service
 @Slf4j
 public class JwtUtil {
-    private String secret = "inn123innABC";
+    @Value("${jwt.secret}")
+    private String secret;
     public String extractUsername(String token){
         return this.extractClaims(token, Claims::getSubject);
     }

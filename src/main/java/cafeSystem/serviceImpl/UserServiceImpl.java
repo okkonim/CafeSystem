@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
                 return CafeUtils.getResponseEntity(CafeConstants.INVALID_DATA, HttpStatus.BAD_REQUEST);
             }
         } catch (Exception exception){
-            exception.printStackTrace();
+            log.error("Error in signup", exception);
         }
         return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
         try {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(requestMap.get("email"), requestMap.get("password")));
             if(authentication.isAuthenticated()){
-                if(customerUsersDetailsService.getUserDetail().getStatus().equalsIgnoreCase("true")){
+                if(customerUsersDetailsService.getUserDetail().getStatus().equalsIgnoreCase(CafeConstants.STATUS_TRUE)){
                     return new ResponseEntity<String>("{\"token\":\"" +
                             jwtUtil.generateToken(customerUsersDetailsService.getUserDetail().getEmail(),customerUsersDetailsService.getUserDetail().getRole()) + "\"}",HttpStatus.OK);
                 } else {
@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserService {
             if(jwtFilter.isAdmin()) return new ResponseEntity<>(userDao.getAllUser(), HttpStatus.OK);
             else return new ResponseEntity<>(new ArrayList<>(), HttpStatus.UNAUTHORIZED);
         } catch (Exception exception){
-            exception.printStackTrace();
+            log.error("Error in getAllUsers", exception);
         }
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -101,14 +101,14 @@ public class UserServiceImpl implements UserService {
                 }
             } else return CafeUtils.getResponseEntity(CafeConstants.UNAUTHORIZED_ACCESS,HttpStatus.UNAUTHORIZED);
         } catch (Exception exception){
-            exception.printStackTrace();
+            log.error("Error in update", exception);
         }
         return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
     public ResponseEntity<String> checkToken() {
-        return CafeUtils.getResponseEntity("true", HttpStatus.OK);
+        return CafeUtils.getResponseEntity(CafeConstants.STATUS_TRUE, HttpStatus.OK);
     }
 
     @Override
@@ -125,7 +125,7 @@ public class UserServiceImpl implements UserService {
             }
             return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (Exception exception){
-            exception.printStackTrace();
+            log.error("Error in changePassword", exception);
         }
     return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -138,7 +138,7 @@ public class UserServiceImpl implements UserService {
                 emailUtils.forgotMail(user.getEmail(), "Credentials by Cafe Management System", user.getPassword());
             return CafeUtils.getResponseEntity("Check your email for credentials", HttpStatus.BAD_GATEWAY);
         } catch (Exception exception){
-            exception.printStackTrace();
+            log.error("Error in forgotPassword", exception);
         }
         return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -146,7 +146,7 @@ public class UserServiceImpl implements UserService {
 
     private void sendMailToAllAdmin(String status, String user, List<String> allAdmin) {
         allAdmin.remove(jwtFilter.getCurrentUser());
-        if(status!=null && status.equalsIgnoreCase("true"))
+        if(status!=null && status.equalsIgnoreCase(CafeConstants.STATUS_TRUE))
             emailUtils.sendSimpleMessage(jwtFilter.getCurrentUser(), "Account Approved","User:- " + user + "\n is approved by \nADMIN:- " +jwtFilter.getCurrentUser(), allAdmin);
         else
             emailUtils.sendSimpleMessage(jwtFilter.getCurrentUser(), "Account Disabled","User:- " + user + "\n is disabled by \nADMIN:- " +jwtFilter.getCurrentUser(), allAdmin);
@@ -164,8 +164,8 @@ public class UserServiceImpl implements UserService {
         user.setContactNumber(requestMap.get("contactNumber"));
         user.setEmail(requestMap.get("email"));
         user.setPassword(requestMap.get("password"));
-        user.setStatus("false");
-        user.setRole("user");
+        user.setStatus(CafeConstants.STATUS_FALSE);
+        user.setRole(CafeConstants.ROLE_USER);
         return user;
     }
     @Override
@@ -185,7 +185,7 @@ public class UserServiceImpl implements UserService {
                 return userWrapper;
             }
         } catch (Exception exception) {
-            exception.printStackTrace();
+            log.error("Error in getCurrent", exception);
         }
         return null;
     }

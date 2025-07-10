@@ -9,6 +9,7 @@ import cafeSystem.pojo.Product;
 import cafeSystem.utils.CafeUtils;
 import cafeSystem.wrapper.ProductWrapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ProductServiceImpl implements ProductService {
     private final ProductDao productDao;
     private final JwtFilter jwtFilter;
@@ -36,7 +38,7 @@ public class ProductServiceImpl implements ProductService {
                 return CafeUtils.getResponseEntity(CafeConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
             }
         } catch (Exception exception){
-            exception.printStackTrace();
+            log.error("Error in addProduct", exception);
         }
         return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -46,7 +48,7 @@ public class ProductServiceImpl implements ProductService {
         try {
             return new ResponseEntity<>(productDao.getAllProducts(),HttpStatus.OK);
         } catch (Exception exception){
-            exception.printStackTrace();
+            log.error("Error in getAllProducts", exception);
         }
         return new ResponseEntity<>(new ArrayList<>(),HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -66,7 +68,7 @@ public class ProductServiceImpl implements ProductService {
                 } else return CafeUtils.getResponseEntity(CafeConstants.INVALID_DATA, HttpStatus.BAD_REQUEST);
             } else return CafeUtils.getResponseEntity(CafeConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
         } catch (Exception exception){
-            exception.printStackTrace();
+            log.error("Error in updateProduct", exception);
         }
         return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -82,7 +84,7 @@ public class ProductServiceImpl implements ProductService {
                 } else return CafeUtils.getResponseEntity("Product with id " + id + " does not exists", HttpStatus.NOT_FOUND);
             } else return CafeUtils.getResponseEntity(CafeConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
         } catch (Exception exception){
-            exception.printStackTrace();
+            log.error("Error in deleteProduct", exception);
         }
         return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -93,12 +95,12 @@ public class ProductServiceImpl implements ProductService {
             if(jwtFilter.isAdmin()){
                 Optional<Product> product = productDao.findById(Integer.parseInt(requestMap.get("id")));
                 if(product.isPresent()){
-                    productDao.updateProductStatus(requestMap.get("status"), Integer.parseInt(requestMap.get("id")));
+                    productDao.updateProductStatus(requestMap.get(CafeConstants.FIELD_STATUS), Integer.parseInt(requestMap.get("id")));
                     return CafeUtils.getResponseEntity("Product status was updated successfully", HttpStatus.OK);
                 } else return CafeUtils.getResponseEntity("Product with id " + requestMap.get("id") + " does not exists", HttpStatus.NOT_FOUND);
             } else return CafeUtils.getResponseEntity(CafeConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
         } catch (Exception exception){
-            exception.printStackTrace();
+            log.error("Error in updateStatus", exception);
         }
         return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -108,7 +110,7 @@ public class ProductServiceImpl implements ProductService {
         try {
             return new ResponseEntity<>(productDao.getProductByCategory(id), HttpStatus.OK);
         } catch (Exception exception){
-            exception.printStackTrace();
+            log.error("Error in getByCategory", exception);
         }
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -118,7 +120,7 @@ public class ProductServiceImpl implements ProductService {
         try {
             return new ResponseEntity<>(productDao.getProductById(id), HttpStatus.OK);
         } catch (Exception exception){
-            exception.printStackTrace();
+            log.error("Error in getById", exception);
         }
         return new ResponseEntity<>(new ProductWrapper(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -130,7 +132,7 @@ public class ProductServiceImpl implements ProductService {
         if(isAdd){
             product.setId(Integer.parseInt(requestMap.get("id")));
         } else {
-            product.setStatus("true");
+            product.setStatus(CafeConstants.STATUS_TRUE);
         }
         product.setCategory(category);
         product.setName(requestMap.get("name"));

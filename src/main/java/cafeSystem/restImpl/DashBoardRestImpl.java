@@ -3,6 +3,7 @@ package cafeSystem.restImpl;
 import cafeSystem.service.DashboardService;
 import cafeSystem.rest.DashboardRest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class DashBoardRestImpl implements DashboardRest {
@@ -19,7 +21,7 @@ public class DashBoardRestImpl implements DashboardRest {
         try {
             return dashboardService.getCount();
         } catch (Exception exception){
-            exception.printStackTrace();
+            log.error("Error in getCount", exception);
         }
         return new ResponseEntity<>(new HashMap<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }

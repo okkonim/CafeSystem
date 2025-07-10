@@ -3,9 +3,10 @@ package cafeSystem.restImpl;
 import cafeSystem.constents.CafeConstants;
 import cafeSystem.rest.ProductRest;
 import cafeSystem.service.ProductService;
-import cafeSystem.utils.CafeUtils;
+import cafeSystem.wrapper.ProductDTO;
 import cafeSystem.wrapper.ProductWrapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,18 +15,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class ProductRestImpl implements ProductRest {
     private final ProductService productService;
     @Override
-    public ResponseEntity<String> addProduct(Map<String, String> requestMap) {
+    public ResponseEntity<String> addProduct(ProductDTO productDTO) {
         try {
+            Map<String, String> requestMap = new java.util.HashMap<>();
+            requestMap.put("name", productDTO.getName());
+            requestMap.put("categoryId", String.valueOf(productDTO.getCategoryId()));
+            requestMap.put("description", productDTO.getDescription());
+            requestMap.put("price", String.valueOf(productDTO.getPrice()));
+            requestMap.put("image", productDTO.getImage());
             return productService.addProduct(requestMap);
         } catch (Exception exception){
-            exception.printStackTrace();
+            log.error("Error in addProduct", exception);
         }
-        return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(("{\"message\":\"" + CafeConstants.SOMETHING_WENT_WRONG + "\"}"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
@@ -33,7 +41,7 @@ public class ProductRestImpl implements ProductRest {
         try {
             return productService.getAllProducts();
         } catch (Exception exception){
-            exception.printStackTrace();
+            log.error("Error in getAllProducts", exception);
         }
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -43,9 +51,9 @@ public class ProductRestImpl implements ProductRest {
         try {
             return productService.updateProduct(requestMap);
         } catch (Exception exception){
-            exception.printStackTrace();
+            log.error("Error in updateProduct", exception);
         }
-        return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(("{\"message\":\"" + CafeConstants.SOMETHING_WENT_WRONG + "\"}"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
@@ -55,7 +63,7 @@ public class ProductRestImpl implements ProductRest {
         } catch (Exception exception){
             exception.printStackTrace();
         }
-        return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(("{\"message\":\"" + CafeConstants.SOMETHING_WENT_WRONG + "\"}"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
@@ -65,7 +73,7 @@ public class ProductRestImpl implements ProductRest {
         } catch (Exception exception){
             exception.printStackTrace();
         }
-        return CafeUtils.getResponseEntity(CafeConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(("{\"message\":\"" + CafeConstants.SOMETHING_WENT_WRONG + "\"}"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
